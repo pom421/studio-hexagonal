@@ -1,40 +1,41 @@
 import type { Metadata, Site, Socials } from "@types";
 
 export const SITE: Site = {
-  TITLE: "Astro Micro",
-  DESCRIPTION: "Astro Micro is an accessible and lightweight blog.",
-  EMAIL: "trevortylerlee@gmail.com",
+  TITLE: "Studio hexagonal",
+  DESCRIPTION: "Studio hexagonal blog.",
+  EMAIL: "hexagonalstudio42@gmail.com",
   NUM_POSTS_ON_HOMEPAGE: 5,
   NUM_PROJECTS_ON_HOMEPAGE: 3,
 };
 
 export const HOME: Metadata = {
   TITLE: "Home",
-  DESCRIPTION: "Astro Micro is an accessible theme for Astro.",
+  DESCRIPTION: "Studio hexagonal est le blog personnel de Pom.",
 };
 
 export const BLOG: Metadata = {
   TITLE: "Blog",
-  DESCRIPTION: "A collection of articles on topics I am passionate about.",
+  DESCRIPTION: "Une collection d'articles sur des sujets qui me passionnent.",
 };
 
 export const PROJECTS: Metadata = {
-  TITLE: "Projects",
+  TITLE: "Projets",
   DESCRIPTION:
-    "A collection of my projects with links to repositories and live demos.",
+    "Une collection de mes projets avec des liens vers les dépôts et les démos en direct.",
 };
 
 export const SOCIALS: Socials = [
   {
     NAME: "X (formerly Twitter)",
-    HREF: "https://twitter.com/boogerbuttcheek",
+    HREF: "https://twitter.com/pom421",
   },
   {
     NAME: "GitHub",
-    HREF: "https://github.com/trevortylerlee",
+    HREF: "https://github.com/pom421",
   },
   {
-    NAME: "Website",
-    HREF: "https://trevortylerlee.com",
+    NAME: "LinkedIn",
+    HREF: "https://www.linkedin.com/in/pierre-olivier-mauguet/",
   },
 ];
+
