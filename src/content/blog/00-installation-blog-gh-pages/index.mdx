@@ -6,12 +6,409 @@ date: "2025-11-20"
 
 import Callout from "@/components/Callout.astro";
 
----
+⏱️ **Temps estimé : 20-30 minutes**
 
-<Callout>
-  Adipisicing et officia reprehenderit fugiat occaecat cupidatat exercitation
-  labore consequat ullamco nostrud non.
+## Introduction
+
+Un site statique est un site web composé de fichiers HTML, CSS et JavaScript prégénérés, sans base de données ni serveur backend. C'est la solution idéale pour un blog : rapide, sécurisé et gratuit à héberger.
+
+Dans ce tutoriel, nous allons créer un blog minimaliste avec **Astro** (un générateur de sites statiques moderne) et l'héberger gratuitement sur **GitHub Pages**. Chaque modification que vous pousserez sur GitHub mettra automatiquement à jour votre site en ligne.
+
+## Prérequis
+
+Avant de commencer, assurez-vous d'avoir :
+
+- **Node.js** (version 18+)
+- **Git** installé et configuré
+- Un **compte GitHub** (gratuit)
+- Des notions de base en ligne de commande
+- Un éditeur de code (VS Code, par exemple)
+
+## Étape 1 : Création du repository sur GitHub
+
+Commençons par créer un dépôt pour héberger notre code source.
+
+**Sur GitHub :**
+
+1. Cliquez sur le bouton **New** (ou **+** > New repository)
+2. Remplissez les informations :
+   - **Repository name** : `studio-hexagonal` (ou le nom de votre choix)
+   - **Visibility** : Public (obligatoire pour GitHub Pages gratuit)
+   - Laissez toutes les autres options décochées
+3. Cliquez sur **Create repository**
+
+<Callout type="info">
+ Notez l'URL de votre dépôt, vous en aurez besoin pour la suite. Elle ressemble à : `https://github.com/votre-username/studio-hexagonal.git`
+ </Callout>
+
+## Étape 2 : Installation du projet Astro
+
+Nous allons utiliser **astro-micro**, un thème minimaliste parfait pour débuter.
+
+### Clonage et installation
+
+Ouvrez votre terminal et exécutez les commandes suivantes :
+
+```shell
+# Clone le thème astro-micro
+git clone https://github.com/trevortylerlee/astro-micro.git studio-hexagonal
+
+# Entre dans le dossier du projet
+cd studio-hexagonal
+
+# Installe les dépendances
+npm install
+```
+
+### Premier lancement
+
+Lancez le serveur de développement pour vérifier que tout fonctionne :
+
+```shell
+npm run dev
+```
+
+Ouvrez votre navigateur à l'adresse `http://localhost:4321`. Vous devriez voir votre blog ! 🚀
+
+<Callout type="info">
+Le mode développement inclut le rechargement automatique : vos modifications s'affichent instantanément dans le navigateur.
 </Callout>
 
+## Étape 3 : Connexion avec votre repository GitHub
 
-## Installation de
+Actuellement, votre projet pointe vers le dépôt original d'astro-micro. Il faut le lier à votre propre dépôt.
+
+```shell
+# Supprime le lien avec le dépôt original
+rm -rf .git
+
+# Initialise un nouveau dépôt Git local
+git init
+
+# Ajoute tous les fichiers au suivi Git
+git add .
+
+# Crée votre premier commit
+git commit -m "feat: premier commit"
+
+# Lie votre dépôt local au dépôt GitHub distant
+# ⚠️ Remplacez 'votre-username' par votre nom d'utilisateur GitHub
+git remote add origin https://github.com/votre-username/studio-hexagonal.git
+
+# Envoie votre code sur GitHub
+git branch -M main
+git push -u origin main
+```
+
+<Callout type="info">
+Ces commandes créent un lien entre votre dossier local et le dépôt GitHub distant, permettant de synchroniser vos modifications en ligne.
+</Callout>
+
+## Étape 4 : Ajout d'une licence (optionnel mais recommandé)
+
+Pour un projet open source, il est recommandé d'ajouter une licence. La **licence MIT** est très permissive et populaire.
+
+Créez un fichier `LICENSE.md` à la racine du projet :
+
+```shell
+YEAR=$(date +%Y)
+FULLNAME="Votre Nom"
+
+cat > LICENSE.md << EOF
+MIT License
+
+Copyright (c) $YEAR $FULLNAME
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+EOF
+```
+
+N'oubliez pas de commiter et pousser ce fichier :
+
+```shell
+git add LICENSE.md
+git commit -m "docs: ajout de la licence MIT"
+git push
+```
+
+## Étape 5 : Configuration pour GitHub Pages
+
+Pour que votre site fonctionne correctement sur GitHub Pages, vous devez configurer Astro avec les bonnes URLs.
+
+Modifiez le fichier `astro.config.mjs` à la racine du projet :
+
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+
+export default defineConfig({
+  // L'URL de votre site GitHub Pages
+  // Format : https://votre-username.github.io
+  site: "https://github.com/votre-username",
+
+  // Le sous-dossier correspondant au nom de votre dépôt
+  base: "/studio-hexagonal",
+
+  // ... le reste de la configuration existante
+});
+```
+
+<Callout type="info">
+Remplacez `votre-username` par votre nom d'utilisateur GitHub.
+</Callout>
+
+Commitez cette modification :
+
+```shell
+git add astro.config.mjs
+git commit -m "config: configuration pour GitHub Pages"
+git push
+```
+
+## Étape 6 : Activation de GitHub Pages
+
+Avant de créer l'action de déploiement, activons GitHub Pages :
+
+1. Sur GitHub, allez dans votre dépôt `studio-hexagonal`
+2. Cliquez sur **Settings** (Paramètres)
+3. Dans le menu latéral, cliquez sur **Pages**
+4. Sous **Source**, sélectionnez **GitHub Actions**
+5. Sauvegardez
+
+Votre dépôt est maintenant prêt à recevoir des déploiements automatiques !
+
+## Étape 7 : Création de l'action de déploiement automatique
+
+Une **GitHub Action** est un script qui s'exécute automatiquement sur les serveurs de GitHub. Nous allons en créer une qui déploiera votre site à chaque fois que vous pousserez du code.
+
+Créez le fichier `.github/workflows/deploy.yml` :
+
+```shell
+mkdir -p .github/workflows
+```
+
+Puis créez le fichier `deploy.yml` avec ce contenu :
+
+```yaml
+# .github/workflows/deploy.yml
+
+name: Deploy to GitHub Pages
+
+# Déclenche l'action à chaque push sur la branche main
+# ou manuellement depuis l'interface GitHub
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Permissions nécessaires pour déployer sur GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  # Job 1 : Construction du site
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Récupère le code source
+      - uses: actions/checkout@v4
+
+      # Installe Node.js version 20
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Installe les dépendances
+      - run: npm ci
+
+      # Construit le site (génère les fichiers dans dist/)
+      - run: npm run build
+
+      # Upload les fichiers générés comme "artifact"
+      # (fichier temporaire stocké par GitHub)
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  # Job 2 : Déploiement du site (attend que build soit terminé)
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    # Environnement GitHub Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # Récupère l'artifact créé dans le job build
+      # et le déploie sur GitHub Pages
+      - uses: actions/deploy-pages@v4
+        id: deployment
+```
+
+<Callout type="info">
+<p>Comment ça fonctionne ?</p>
+
+1. Le job **build** compile votre site Astro en fichiers HTML statiques
+2. Ces fichiers sont uploadés comme "artifact" (archive temporaire)
+3. Le job **deploy** récupère automatiquement cet artifact et le publie sur GitHub Pages
+4. L'URL finale apparaît dans l'interface GitHub Actions
+</Callout>
+
+Commitez et poussez l'action :
+
+```shell
+git add .github/workflows/deploy.yml
+git commit -m "ci: ajout de l'action de déploiement GitHub Pages"
+git push
+```
+
+## Étape 8 : Vérification du déploiement
+
+Votre site devrait maintenant se déployer automatiquement !
+
+1. Sur GitHub, allez dans l'onglet **Actions** de votre dépôt
+2. Vous devriez voir un workflow en cours d'exécution (icône orange 🟠)
+3. Attendez qu'il devienne vert ✅ (environ 1-2 minutes)
+4. Cliquez sur le workflow, puis sur **deploy** pour voir l'URL de votre site
+
+Votre blog est maintenant accessible à l'adresse :
+```
+https://votre-username.github.io/studio-hexagonal/
+```
+
+🎉 **Félicitations !** Votre blog est en ligne !
+
+## Étape 9 : Créer votre premier article
+
+Pour ajouter un article à votre blog :
+
+1. Créez un nouveau dossier dans `src/content/blog/` :
+   ```shell
+   mkdir src/content/blog/mon-premier-article
+   ```
+
+2. Créez un fichier `index.md` (ou `index.mdx` pour utiliser des composants) :
+   ```markdown
+   ---
+   title: "Mon premier article"
+   description: "Découvrez comment j'ai créé mon blog"
+   date: "2024-01-15"
+   ---
+
+   ## Introduction
+
+   Bienvenue sur mon premier article ! 🎉
+
+   Je viens de créer ce blog avec Astro et GitHub Pages...
+   ```
+
+3. Commitez et poussez :
+   ```shell
+   git add .
+   git commit -m "content: ajout du premier article"
+   git push
+   ```
+
+4. Attendez quelques instants que l'action GitHub se termine, puis rafraîchissez votre site : votre article apparaît ! ✨
+
+## Dépannage
+
+### Erreur 404 lors de l'accès au site
+
+**Problème** : La page affiche "404 - Page not found"
+
+**Solutions** :
+- Vérifiez que GitHub Pages est activé (Settings > Pages > Source = GitHub Actions)
+- Vérifiez que `site` et `base` sont corrects dans `astro.config.mjs`
+- Attendez quelques minutes après le premier déploiement
+
+### L'action GitHub échoue avec "Not Found"
+
+**Problème** : L'action affiche une erreur "Error: Creating Pages deployment failed"
+
+**Solution** : Activez GitHub Pages dans Settings > Pages > Source > GitHub Actions
+
+### Les styles CSS ne se chargent pas
+
+**Problème** : Le site s'affiche sans mise en forme
+
+**Solution** : Vérifiez la configuration `base` dans `astro.config.mjs`. Elle doit correspondre exactement au nom de votre dépôt.
+
+### Le site fonctionne en local mais pas en ligne
+
+**Solution** : Testez la version de production en local :
+```shell
+npm run build
+npm run preview
+```
+
+Cela vous permettra de voir si le problème vient de la configuration ou du déploiement.
+
+## Pour aller plus loin
+
+Maintenant que votre blog est en ligne, voici quelques pistes d'amélioration :
+
+### Personnalisation
+- Modifiez les couleurs et le style dans les fichiers CSS
+- Personnalisez le header et le footer
+- Ajoutez votre photo et votre bio
+
+### Fonctionnalités
+- Ajoutez des tags et catégories à vos articles
+- Intégrez un système de commentaires (Giscus, par exemple)
+- Ajoutez Google Analytics ou une alternative (Plausible, Umami)
+- Créez un flux RSS (souvent inclus par défaut avec Astro)
+
+### SEO
+- Optimisez les métadonnées (titre, description, Open Graph)
+- Ajoutez un sitemap (généré automatiquement par Astro)
+- Créez un fichier `robots.txt`
+
+### Domaine personnalisé
+- Achetez un nom de domaine (ex: `monblog.com`)
+- Configurez-le pour pointer vers GitHub Pages
+- Ajoutez un fichier `CNAME` à la racine de `public/`
+
+## Conclusion
+
+Vous venez de créer et déployer un blog professionnel gratuitement ! 🎊
+
+Récapitulatif de ce que vous avez appris :
+- Installer et configurer un projet Astro
+- Utiliser Git et GitHub pour versionner votre code
+- Créer une GitHub Action pour automatiser le déploiement
+- Héberger un site statique gratuitement sur GitHub Pages
+
+À chaque fois que vous pousserez du code sur la branche `main`, votre site sera automatiquement mis à jour en quelques minutes. C'est le pouvoir de l'intégration continue (CI/CD) !
+
+N'hésitez pas à explorer la documentation d'Astro pour découvrir toutes ses possibilités. Bon blogging ! ✍️
+
+---
+
+## Ressources utiles
+
+- [Documentation Astro](https://docs.astro.build/)
+- [Documentation GitHub Pages](https://docs.github.com/pages)
+- [Astro Themes](https://astro.build/themes/) - Des centaines de thèmes gratuits
+- [Markdown Guide](https://www.markdownguide.org/) - Pour rédiger vos articles
+- [MDX](https://mdxjs.com/) - Pour ajouter des composants interactifs

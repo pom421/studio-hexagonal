@@ -38,4 +38,3 @@ export const SOCIALS: Socials = [
     HREF: "https://www.linkedin.com/in/pierre-olivier-mauguet/",
   },
 ];
-
