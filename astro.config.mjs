@@ -8,7 +8,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   site: "https://github.com/pom421/studio-hexagonal",
   base: "studio-hexagonal",
-  trailingSlash: "never",
+  trailingSlash: "ignore",
   integrations: [sitemap(), mdx(), pagefind()],
   vite: {
     plugins: [tailwindcss()],
